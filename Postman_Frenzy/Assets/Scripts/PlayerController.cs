@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
 
     public float speed = 5f;
+    public Transform cameraPos;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -27,14 +28,21 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
         }
-        //horizontal axis
-        float XAis = Input.GetAxis("Horizontal");
-        //vertical axis
-        float ZAxis = Input.GetAxis("Vertical");
-        //movement vector
-        Vector3 movement = new Vector3(XAis, 0f, ZAxis);
-        //movement
-        transform.Translate(movement * speed * Time.deltaTime);
+
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        Vector3 direction = new Vector3(h, 0, v).normalized;
+
+        if (direction.magnitude > 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cameraPos.eulerAngles.y;
+            Quaternion rotation = Quaternion.Euler(0, targetAngle, 0);
+            transform.rotation = rotation;
+
+            Vector3 moveDir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+            transform.position += moveDir * speed * Time.deltaTime;
+        }
     }
     void OnCollisionStay()
     {
