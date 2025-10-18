@@ -155,3 +155,4 @@ MonoBehaviour:
   jumpForce: 2
   isGround: 0
   speed: 5
+  cameraPos: {fileID: 4803300265818673551, guid: e72e884a31219134da95536a87c82bf1, type: 3}

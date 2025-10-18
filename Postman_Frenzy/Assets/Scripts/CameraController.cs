@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
         rotationX += Input.GetAxis("Mouse X") * sensitivity;
         rotationY -= Input.GetAxis("Mouse Y") * sensitivity;
         //block player from moving too far
-        rotationY = Mathf.Clamp(rotationY, 30f, 60f);
+        rotationY = Mathf.Clamp(rotationY, 0, 60f);
 
         Vector3 direction = new Vector3(0, 0, -distance);
         Quaternion rotation = Quaternion.Euler(rotationY, rotationX, 0);
