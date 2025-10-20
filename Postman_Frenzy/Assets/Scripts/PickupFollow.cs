@@ -39,18 +39,7 @@ public class PickupFollowFixed : MonoBehaviour
         }
     }
 
-    [System.Obsolete]
-    void TryPickup()
-    {
-        // Alleen oppakken als dichtbij speler
-        float distance = Vector3.Distance(transform.position, player.position);
-        if (distance <= pickupRange && Input.GetKeyDown(pickupKey))
-        {
-            isHeld = true;
-            rb.useGravity = false;
-            rb.velocity = Vector3.zero;
-        }
-    }
+
 
     void FollowPlayer()
     {
@@ -63,11 +52,23 @@ public class PickupFollowFixed : MonoBehaviour
         rb.MovePosition(newPosition); // physics-safe verplaatsing
     }
 
-    [System.Obsolete]
+    void TryPickup()
+    {
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (distance <= pickupRange && Input.GetKeyDown(pickupKey))
+        {
+            isHeld = true;
+            rb.useGravity = false;
+            rb.linearVelocity = Vector3.zero;
+            GetComponent<Collider>().enabled = false; // collider uit
+        }
+    }
+
     void DropObject()
     {
         isHeld = false;
         rb.useGravity = true;
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
+        GetComponent<Collider>().enabled = true; // collider weer aan
     }
 }

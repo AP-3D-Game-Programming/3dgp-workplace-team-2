@@ -8,11 +8,12 @@ TagManager:
   - FxTemporaire
   - Obstacle
   - Deadly
+  - Pickup
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Interactive
   - Water
   - UI
   - 
