@@ -23,7 +23,7 @@ public class OlieObstacle : MonoBehaviour
 
     private IEnumerator Slip(Rigidbody rb, PlayerController controller)
     {
-        Debug.Log("💧 Speler glijdt!");
+        Debug.Log(" Speler glijdt!");
 
         // Schakel spelerbesturing uit (indien aanwezig)
         if (controller != null)
@@ -33,7 +33,7 @@ public class OlieObstacle : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotation;
 
         // Duw speler vooruit
-        Vector3 slideDir = rb.transform.forward;
+        Vector3 slideDir = rb.transform.up;
         rb.AddForce(slideDir * slideForce, ForceMode.VelocityChange);
 
         // Wacht 2 seconden
@@ -46,6 +46,6 @@ public class OlieObstacle : MonoBehaviour
         if (controller != null)
             controller.enabled = true;
 
-        Debug.Log("✅ Speler heeft weer controle");
+        Debug.Log(" Speler heeft weer controle");
     }
 }
