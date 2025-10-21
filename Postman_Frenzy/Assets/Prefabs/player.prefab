@@ -218,9 +218,9 @@ GameObject:
   - component: {fileID: 7089547873242274511}
   - component: {fileID: 199834298050046808}
   - component: {fileID: 5098053022404229900}
-  - component: {fileID: 4308777111397140862}
   - component: {fileID: 922830767406910975}
   - component: {fileID: 7707455083795576649}
+  - component: {fileID: 4625840677952793398}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -236,8 +236,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4753868185715288943}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0.00000062774814, y: 0.50904214, z: -0.00000032925104, w: -0.8607416}
+  m_LocalPosition: {x: 4.472437, y: 1, z: 10.473182}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -297,29 +297,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &4308777111397140862
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4753868185715288943}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &922830767406910975
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -359,11 +336,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88344c7313dad4459f6b383b5aefced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  jump: {x: 0, y: 0, z: 0}
+  jump: {x: 0, y: 2, z: 0}
   jumpForce: 2
-  isGround: 0
+  isGround: 1
   speed: 5
-  cameraPos: {fileID: 4803300265818673551, guid: e72e884a31219134da95536a87c82bf1, type: 3}
+  cameraPos: {fileID: 0}
+--- !u!114 &4625840677952793398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4753868185715288943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 098905b923e2f48428e3a095c921b011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnPosition: {x: 0, y: 1, z: 0}
+  deathText: {fileID: 0}
+  deathMessageDuration: 2
+  deadlyTag: Deadly
+  deathMessage: 
 --- !u!1 &5346998337591747937
 GameObject:
   m_ObjectHideFlags: 0
