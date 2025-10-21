@@ -16,6 +16,10 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //remove and confine cursor to gamespace
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
+
         rotationX += Input.GetAxis("Mouse X") * sensitivity;
         rotationY -= Input.GetAxis("Mouse Y") * sensitivity;
         //block player from moving too far
@@ -26,5 +30,6 @@ public class CameraController : MonoBehaviour
         //follow after player
         transform.position = player.position + rotation * direction;
         transform.LookAt(player);
+
     }
 }
