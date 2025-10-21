@@ -1830,7 +1830,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Lorem
+  m_Text: Dead!
 --- !u!1001 &1421508431
 PrefabInstance:
   m_ObjectHideFlags: 0
