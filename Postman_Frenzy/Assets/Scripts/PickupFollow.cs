@@ -10,6 +10,7 @@ public class PickupFollowFixed : MonoBehaviour
 
     private bool isHeld = false;
     private Rigidbody rb;
+    private PickupPrompt prompt;      // verwijzing naar het prompt-script
 
     void Start()
     {
@@ -18,7 +19,10 @@ public class PickupFollowFixed : MonoBehaviour
             rb = gameObject.AddComponent<Rigidbody>();
 
         rb.useGravity = true;
-        rb.constraints = RigidbodyConstraints.FreezeRotation; // kantelen voorkomen
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+
+        // Zoek het PickupPrompt-script op hetzelfde object
+        prompt = GetComponent<PickupPrompt>();
     }
 
     [System.Obsolete]
@@ -39,15 +43,11 @@ public class PickupFollowFixed : MonoBehaviour
         }
     }
 
-
-
     void FollowPlayer()
     {
-        // Bepaal target positie achter de speler
         Vector3 targetPosition = player.position - player.forward * followDistance;
         targetPosition.y = transform.position.y; // hoogte behouden
 
-        // Smooth movement met Lerp i.p.v. velocity
         Vector3 newPosition = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
         rb.MovePosition(newPosition); // physics-safe verplaatsing
     }
@@ -60,7 +60,10 @@ public class PickupFollowFixed : MonoBehaviour
             isHeld = true;
             rb.useGravity = false;
             rb.linearVelocity = Vector3.zero;
-            GetComponent<Collider>().enabled = false; // collider uit
+            GetComponent<Collider>().enabled = false;
+
+            if (prompt != null)
+                prompt.isHeld = true; // update de prompt
         }
     }
 
@@ -69,6 +72,9 @@ public class PickupFollowFixed : MonoBehaviour
         isHeld = false;
         rb.useGravity = true;
         rb.linearVelocity = Vector3.zero;
-        GetComponent<Collider>().enabled = true; // collider weer aan
+        GetComponent<Collider>().enabled = true;
+
+        if (prompt != null)
+            prompt.isHeld = false; // update de prompt
     }
 }
