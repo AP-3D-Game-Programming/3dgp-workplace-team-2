@@ -1,34 +1,45 @@
-using NUnit.Framework;
-//using UnityEditor.Callbacks;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     public Vector3 jump;
     public float jumpForce = 2.0f;
     public bool isGround;
+    private bool hasJumped = false; // voorkomt dubbel jump
     Rigidbody rb;
 
     public float speed = 5f;
     public Transform cameraPos;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true; // voorkom dat de speler valt of rolt
         jump = new Vector3(0.0f, 2.0f, 0.0f);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //player movement
-        //player jump
-        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        HandleJump();
+    }
+
+    void FixedUpdate()
+    {
+        HandleMovement();
+    }
+
+    void HandleJump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGround && !hasJumped)
         {
             rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+            hasJumped = true; // zet flag zodat je niet opnieuw kan springen
         }
+    }
 
+    void HandleMovement()
+    {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -41,13 +52,26 @@ public class PlayerController : MonoBehaviour
             transform.rotation = rotation;
 
             Vector3 moveDir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-            transform.position += moveDir * speed * Time.deltaTime;
+
+            // Physics-safe movement
+            rb.MovePosition(rb.position + moveDir * speed * Time.fixedDeltaTime);
         }
     }
-    void OnCollisionStay()
+
+    void OnCollisionStay(Collision collision)
     {
-        isGround = true;
+        // check of we echt op de grond staan
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            if (Vector3.Dot(contact.normal, Vector3.up) > 0.5f) // vlakke grond check
+            {
+                isGround = true;
+                hasJumped = false; // reset jump flag zodra we de grond raken
+                break;
+            }
+        }
     }
+
     void OnCollisionExit(Collision collision)
     {
         isGround = false;

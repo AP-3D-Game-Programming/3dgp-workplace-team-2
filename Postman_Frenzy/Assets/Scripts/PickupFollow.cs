@@ -12,6 +12,8 @@ public class PickupFollowFixed : MonoBehaviour
     private Rigidbody rb;
     private PickupPrompt prompt;      // verwijzing naar het prompt-script
 
+    private PickupWithSlider timerScript;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -23,6 +25,8 @@ public class PickupFollowFixed : MonoBehaviour
 
         // Zoek het PickupPrompt-script op hetzelfde object
         prompt = GetComponent<PickupPrompt>();
+
+        timerScript = GetComponent<PickupWithSlider>();
     }
 
     [System.Obsolete]
@@ -64,6 +68,9 @@ public class PickupFollowFixed : MonoBehaviour
 
             if (prompt != null)
                 prompt.isHeld = true; // update de prompt
+
+            if (timerScript != null)
+                timerScript.StartTimer();
         }
     }
 
@@ -76,5 +83,10 @@ public class PickupFollowFixed : MonoBehaviour
 
         if (prompt != null)
             prompt.isHeld = false; // update de prompt
+    }
+
+    public void HidePrompt ()
+    {
+        gameObject.SetActive(false);
     }
 }
