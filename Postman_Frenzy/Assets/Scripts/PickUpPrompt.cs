@@ -47,4 +47,10 @@ public class PickupPrompt : MonoBehaviour
             promptText.gameObject.SetActive(false);
         }
     }
+
+    public void HideText()
+    {
+        if (promptText != null)
+            promptText.gameObject.SetActive(false);
+    }
 }

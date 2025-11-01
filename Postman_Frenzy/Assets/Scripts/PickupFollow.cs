@@ -2,31 +2,29 @@ using UnityEngine;
 
 public class PickupFollowFixed : MonoBehaviour
 {
-    public Transform player;          // speler waar het object achteraan volgt
-    public float pickupRange = 3f;    // afstand om op te pakken
-    public float followDistance = 2f; // hoe ver achter de speler het object volgt
-    public float moveSpeed = 5f;      // snelheid van volgen
+    public Transform player;
+    public float pickupRange = 3f;
+    public float followDistance = 2f;
+    public float moveSpeed = 5f;
     public KeyCode pickupKey = KeyCode.E;
 
     private bool isHeld = false;
     private Rigidbody rb;
-    private PickupPrompt prompt;      // verwijzing naar het prompt-script
-
+    private PickupPrompt prompt;
     private PickupWithSlider timerScript;
+
+    private DeliveryHouse targetHouse; 
+    private MoneyUI moneyUI;        
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        if (rb == null)
-            rb = gameObject.AddComponent<Rigidbody>();
-
         rb.useGravity = true;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
 
-        // Zoek het PickupPrompt-script op hetzelfde object
         prompt = GetComponent<PickupPrompt>();
-
         timerScript = GetComponent<PickupWithSlider>();
+        moneyUI = Object.FindFirstObjectByType<MoneyUI>(); // <— zoek UI-script
     }
 
     [System.Obsolete]
@@ -50,10 +48,10 @@ public class PickupFollowFixed : MonoBehaviour
     void FollowPlayer()
     {
         Vector3 targetPosition = player.position - player.forward * followDistance;
-        targetPosition.y = transform.position.y; // hoogte behouden
+        targetPosition.y = transform.position.y;
 
         Vector3 newPosition = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
-        rb.MovePosition(newPosition); // physics-safe verplaatsing
+        rb.MovePosition(newPosition);
     }
 
     void TryPickup()
@@ -67,10 +65,12 @@ public class PickupFollowFixed : MonoBehaviour
             GetComponent<Collider>().enabled = false;
 
             if (prompt != null)
-                prompt.isHeld = true; // update de prompt
+                prompt.isHeld = true;
 
             if (timerScript != null)
                 timerScript.StartTimer();
+
+            SelectRandomHouse();
         }
     }
 
@@ -82,10 +82,47 @@ public class PickupFollowFixed : MonoBehaviour
         GetComponent<Collider>().enabled = true;
 
         if (prompt != null)
-            prompt.isHeld = false; // update de prompt
+            prompt.isHeld = false;
+
+        if (targetHouse != null)
+            targetHouse.isTarget = false; // reset highlight
     }
 
-    public void HidePrompt ()
+    void SelectRandomHouse()
+    {
+        DeliveryHouse[] houses = Object.FindObjectsByType<DeliveryHouse>(FindObjectsSortMode.None);
+        if (houses.Length == 0) return;
+
+        targetHouse = houses[Random.Range(0, houses.Length)];
+        targetHouse.isTarget = true;
+        Debug.Log($"Nieuw doelhuis: {targetHouse.name}");
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (isHeld && targetHouse != null && other.gameObject == targetHouse.gameObject)
+        {
+            DeliverPackage();
+        }
+    }
+
+    void DeliverPackage()
+    {
+        Debug.Log("Pakket bezorgd!");
+        targetHouse.isTarget = false;
+        isHeld = false;
+
+        if (moneyUI != null)
+            moneyUI.AddMoney(50); // bijvoorbeeld €50
+
+        if (prompt != null)
+            prompt.HideText(); // <— verberg de UI tekst meteen
+
+        HidePrompt();
+        Destroy(gameObject); // verwijder het pakket
+    }
+
+    public void HidePrompt()
     {
         gameObject.SetActive(false);
     }
