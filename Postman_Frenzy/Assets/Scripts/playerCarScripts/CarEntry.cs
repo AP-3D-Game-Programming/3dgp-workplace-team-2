@@ -7,7 +7,7 @@ public class CarEntry : MonoBehaviour
 
     public Transform vehicle;
 
-    public Transform crate;
+    //public Transform crate;
     public CameraController CameraController;
     private bool isInVehicle = false;
 
@@ -41,7 +41,7 @@ public class CarEntry : MonoBehaviour
         vehicle.GetComponent<CarController>().enabled = true;
         player.gameObject.SetActive(false);
 
-        crate.GetComponent<PickupFollowFixed>().player = vehicle;
+        //crate.GetComponent<PickupFollowFixed>().player = vehicle;
         CameraController.player = vehicle;
 
         Debug.Log("enter vehicle complete");
@@ -56,7 +56,7 @@ public class CarEntry : MonoBehaviour
         player.position = transform.position + transform.right * 2f;
         player.gameObject.SetActive(true);
 
-        crate.GetComponent<PickupFollowFixed>().player = player;
+        //crate.GetComponent<PickupFollowFixed>().player = player;
         CameraController.player = player;
 
         Debug.Log("exited vehicle");
