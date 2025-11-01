@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3322255792651113600}
   - component: {fileID: 7942608980381060379}
   - component: {fileID: 5128956114650069528}
-  - component: {fileID: 8901929294485866571}
   - component: {fileID: 704300383530821316}
   - component: {fileID: 5969471831906243668}
   - component: {fileID: 5750156010255881143}
@@ -109,24 +108,7 @@ MonoBehaviour:
   followDistance: 0.5
   moveSpeed: 10
   pickupKey: 101
---- !u!114 &8901929294485866571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8931708953118114714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 947c15d62d9ee9f4ea7780539fa8dd2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptText: {fileID: 0}
-  playerTag: Player
-  pickupMessage: Press 'E' to pick up
-  dropMessage: Press 'E' to drop
-  showDistance: 3
-  isHeld: 0
+  targetHouse: {fileID: 0}
 --- !u!114 &704300383530821316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,5 +187,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab497d5b4fe6b24786073bb67037d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerDuration: 10
+  timerDuration: 30
   timerSlider: {fileID: 0}

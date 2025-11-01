@@ -20,4 +20,11 @@ public class DeliveryHouse : MonoBehaviour
         if (rend != null)
             rend.material.color = isTarget ? targetColor : defaultColor;
     }
+
+    public void ResetHouse()
+    {
+        isTarget = false;
+        if (rend != null)
+            rend.material.color = defaultColor;
+    }
 }

@@ -13,8 +13,8 @@ public class PickupFollowFixed : MonoBehaviour
     private PickupPrompt prompt;
     private PickupWithSlider timerScript;
 
-    private DeliveryHouse targetHouse; 
-    private MoneyUI moneyUI;        
+    public DeliveryHouse targetHouse; // Made public so other scripts can access it
+    private MoneyUI moneyUI;
 
     void Start()
     {
