@@ -6066,6 +6066,10 @@ PrefabInstance:
       propertyPath: timerSlider
       value: 
       objectReference: {fileID: 417601733}
+    - target: {fileID: 6936957912462786557, guid: afacc45241fb813448e7d237452c5c62, type: 3}
+      propertyPath: timerDuration
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 7886604043951443587, guid: afacc45241fb813448e7d237452c5c62, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.7478423
