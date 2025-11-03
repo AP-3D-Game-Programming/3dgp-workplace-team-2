@@ -9,6 +9,7 @@ TagManager:
   - Obstacle
   - Deadly
   - Pickup
+  - player
   layers:
   - Default
   - TransparentFX

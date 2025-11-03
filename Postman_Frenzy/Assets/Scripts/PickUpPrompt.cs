@@ -8,12 +8,12 @@ public class PickupPrompt : MonoBehaviour
 
     [Header("Settings")]
     public string playerTag = "Player"; // Tag van de speler
-    public string pickupMessage = "Press 'E' to pick up"; 
+    public string pickupMessage = "Press 'E' to pick up";
     public string dropMessage = "Press 'E' to drop";
     public string deliverMessage = "Press 'E' to deliver package";
     public float showDistance = 3f;
 
-    [HideInInspector] 
+    [HideInInspector]
     public bool isHeld = false;
 
     private Transform player;
@@ -73,6 +73,9 @@ public class PickupPrompt : MonoBehaviour
         {
             promptText.gameObject.SetActive(false);
         }
+        if (player == null || promptText == null) return;
+
+        Debug.Log($"Distance to player: {distance}");
     }
 
     public void HideText()

@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 7886604043951443587}
   - component: {fileID: 3322255792651113600}
   - component: {fileID: 7942608980381060379}
-  - component: {fileID: 5128956114650069528}
-  - component: {fileID: 704300383530821316}
   - component: {fileID: 5969471831906243668}
   - component: {fileID: 5750156010255881143}
-  - component: {fileID: 6936957912462786557}
+  - component: {fileID: 8965710370659848952}
+  - component: {fileID: 8956826503175949850}
+  - component: {fileID: 5494341685591669066}
+  - component: {fileID: 596467526123282562}
   m_Layer: 0
   m_Name: Crate
   m_TagString: Untagged
@@ -91,42 +92,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5128956114650069528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8931708953118114714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dec5adce23f1474f9af537d1be24726, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  pickupRange: 3
-  followDistance: 0.5
-  moveSpeed: 10
-  pickupKey: 101
-  targetHouse: {fileID: 0}
---- !u!114 &704300383530821316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8931708953118114714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 947c15d62d9ee9f4ea7780539fa8dd2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  promptText: {fileID: 0}
-  playerTag: Player
-  pickupMessage: Press 'E' to pick up
-  dropMessage: Press 'E' to drop
-  showDistance: 3
-  isHeld: 0
 --- !u!65 &5969471831906243668
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -175,7 +140,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6936957912462786557
+--- !u!114 &8965710370659848952
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,8 +149,62 @@ MonoBehaviour:
   m_GameObject: {fileID: 8931708953118114714}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ab497d5b4fe6b24786073bb67037d0e, type: 3}
+  m_Script: {fileID: 11500000, guid: 60cd28eac2336ff4f90c50391ba13970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerDuration: 30
+  player: {fileID: 0}
+  pickupRange: 3
+  followDistance: 2
+  moveSpeed: 5
+  pickupKey: 101
+  targetHouse: {fileID: 0}
+--- !u!114 &8956826503175949850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8931708953118114714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c9dee51918407d409ed974d512f00ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerDuration: 360
   timerSlider: {fileID: 0}
+--- !u!114 &5494341685591669066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8931708953118114714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61046c781ec416042a8ee5111f3fc749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupHouse: {fileID: 0}
+  deliveryHouse: {fileID: 0}
+  interactDistance: 3
+  promptText: {fileID: 0}
+  packagePrefab: {fileID: 8931708953118114714}
+--- !u!114 &596467526123282562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8931708953118114714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3000de541374c1f49b1c51a3ddb51383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptText: {fileID: 0}
+  playerTag: Player
+  pickupMessage: Press 'E' to pick up
+  dropMessage: Press 'E' to drop
+  deliverMessage: Press 'E' to deliver package
+  showDistance: 3
+  isHeld: 0
