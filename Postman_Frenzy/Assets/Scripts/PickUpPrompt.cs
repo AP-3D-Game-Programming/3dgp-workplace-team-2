@@ -22,6 +22,9 @@ public class PickupPrompt : MonoBehaviour
 
     void Start()
     {
+        if (promptText == null)
+            Debug.LogWarning("PromptText not assigned!");
+
         if (promptText != null)
             promptText.gameObject.SetActive(false);
 
@@ -75,7 +78,7 @@ public class PickupPrompt : MonoBehaviour
         }
         if (player == null || promptText == null) return;
 
-        Debug.Log($"Distance to player: {distance}");
+        //Debug.Log($"Distance to player: {distance}");
     }
 
     public void HideText()
