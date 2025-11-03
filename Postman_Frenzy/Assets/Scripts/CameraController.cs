@@ -10,15 +10,15 @@ public class CameraController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         //remove and confine cursor to gamespace
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
+
 
         rotationX += Input.GetAxis("Mouse X") * sensitivity;
         rotationY -= Input.GetAxis("Mouse Y") * sensitivity;
