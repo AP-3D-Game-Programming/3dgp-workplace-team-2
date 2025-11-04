@@ -57,17 +57,14 @@ public class DeliverySystem : MonoBehaviour
     }
 
     void DeliverPackage()
+{
+    hasPackage = false;
+    if (heldPackage != null)
     {
-        hasPackage = false;
-        if (heldPackage != null)
-        {
-            Destroy(heldPackage);
-            heldPackage = null;
-        }
         Destroy(heldPackage);
         heldPackage = null;
-
-        // Hier kun je eventueel score toevoegen of iets triggeren
-        Debug.Log("Package delivered!");
     }
+
+    Debug.Log("Package delivered!");
+}
 }
