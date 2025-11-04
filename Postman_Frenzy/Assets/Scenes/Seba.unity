@@ -253,7 +253,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6216180762002112732, guid: b9e6e8fc8c26bba4a9a33630d7a248bf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1987024597}
   m_SourcePrefab: {fileID: 100100000, guid: b9e6e8fc8c26bba4a9a33630d7a248bf, type: 3}
 --- !u!1 &208067291
 GameObject:
@@ -393,12 +396,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947c15d62d9ee9f4ea7780539fa8dd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptText: {fileID: 0}
-  playerTag: Player
-  pickupMessage: Press 'E' to pick up
-  dropMessage: Press 'E' to drop
-  showDistance: 3
-  isHeld: 0
 --- !u!4 &236431034 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7886604043951443587, guid: afacc45241fb813448e7d237452c5c62, type: 3}
@@ -1132,6 +1129,25 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9e6e8fc8c26bba4a9a33630d7a248bf, type: 3}
+--- !u!1 &1987024596 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6216180762002112732, guid: b9e6e8fc8c26bba4a9a33630d7a248bf, type: 3}
+  m_PrefabInstance: {fileID: 11188975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1987024597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987024596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c116891a607a90b4698f8cfa79291ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTarget: 0
+  targetColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!4 &2096905340 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7848593421627615217, guid: b9e6e8fc8c26bba4a9a33630d7a248bf, type: 3}
@@ -1289,11 +1305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098905b923e2f48428e3a095c921b011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnPosition: {x: 0, y: 0, z: 0}
-  deathText: {fileID: 4613938}
-  deathMessageDuration: 2
-  deadlyTag: Deadly
-  deathMessage: You died
 --- !u!1001 &5974192636001305927
 PrefabInstance:
   m_ObjectHideFlags: 0

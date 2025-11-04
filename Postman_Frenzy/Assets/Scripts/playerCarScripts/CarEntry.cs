@@ -53,8 +53,16 @@ public class CarEntry : MonoBehaviour
     {
         isInVehicle = false;
 
+        // Apply brakes to slow down the car
+        var carController = vehicle.GetComponent<CarController>();
+        foreach (var wheel in carController.wheels)
+        {
+            wheel.wheelCollider.brakeTorque = 600 * carController.breakAcceleration;
+            wheel.wheelCollider.motorTorque = 0; // Stop the motor
+        }
+
         player.GetComponent<PlayerController>().enabled = true;
-        vehicle.GetComponent<CarController>().enabled = false;
+        carController.enabled = false;
 
         player.position = transform.position + transform.right * 2f;
         player.gameObject.SetActive(true);
