@@ -5,7 +5,7 @@ public class DeliverySystem : MonoBehaviour
 {
     [Header("Huis instellingen")]
     public Transform pickupHouse;       // Huis waar je het pakketje oppakt
-    public Transform deliveryHouse;     // Huis waar je het pakketje aflevert
+    private Transform deliveryHouse;     // Huis waar je het pakketje aflevert
     public float interactDistance = 3f; // Afstand waarop je kunt interacteren
 
     [Header("UI")]
