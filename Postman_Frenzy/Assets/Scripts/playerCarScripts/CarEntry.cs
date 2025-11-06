@@ -17,7 +17,7 @@ public class CarEntry : MonoBehaviour
     {
         if (!isInVehicle)
         {
-            if (Vector3.Distance(player.position, vehicle.position) < 3f)
+            if (Vector3.Distance(player.position, vehicle.position) < 5f)
             {
                 if (Input.GetKeyDown(KeyCode.F))
                 {
