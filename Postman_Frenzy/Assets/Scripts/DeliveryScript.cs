@@ -9,7 +9,6 @@ public class DeliverySystem : MonoBehaviour
     public float interactDistance = 3f; // Afstand waarop je kunt interacteren
 
     [Header("UI")]
-    public Text promptText;             // Tekst op het scherm
     public GameObject packagePrefab;    // Het pakketje dat je oppakt
     private GameObject heldPackage;     // Huidige pakketje
 
@@ -17,15 +16,11 @@ public class DeliverySystem : MonoBehaviour
 
     void Update()
     {
-        if (promptText != null)
-            promptText.gameObject.SetActive(false);
 
         // Check afstand tot pickup house
         float distanceToPickup = Vector3.Distance(transform.position, pickupHouse.position);
         if (!hasPackage && distanceToPickup <= interactDistance)
         {
-            promptText.gameObject.SetActive(true);
-            promptText.text = "Press 'E' to pick up package";
 
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -35,15 +30,16 @@ public class DeliverySystem : MonoBehaviour
         }
 
         // Check afstand tot delivery house
-        float distanceToDelivery = Vector3.Distance(transform.position, deliveryHouse.position);
-        if (hasPackage && distanceToDelivery <= interactDistance)
+        if (deliveryHouse != null)
         {
-            promptText.gameObject.SetActive(true);
-            promptText.text = "Press 'E' to deliver package";
-
-            if (Input.GetKeyDown(KeyCode.E))
+            float distanceToDelivery = Vector3.Distance(transform.position, deliveryHouse.position);
+            if (hasPackage && distanceToDelivery <= interactDistance)
             {
-                DeliverPackage();
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    DeliverPackage();
+                }
             }
         }
     }
@@ -57,14 +53,14 @@ public class DeliverySystem : MonoBehaviour
     }
 
     void DeliverPackage()
-{
-    hasPackage = false;
-    if (heldPackage != null)
     {
-        Destroy(heldPackage);
-        heldPackage = null;
-    }
+        hasPackage = false;
+        if (heldPackage != null)
+        {
+            Destroy(heldPackage);
+            heldPackage = null;
+        }
 
-    Debug.Log("Package delivered!");
-}
+        Debug.Log("Package delivered!");
+    }
 }

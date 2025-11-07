@@ -10,6 +10,7 @@ TagManager:
   - Deadly
   - Pickup
   - player
+  - Water
   layers:
   - Default
   - TransparentFX
