@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using Unity;
 
 public class PickupFollowFixed : MonoBehaviour
 {
@@ -15,6 +17,17 @@ public class PickupFollowFixed : MonoBehaviour
 
     public DeliveryHouse targetHouse; // Made public so other scripts can access it
     private MoneyUI moneyUI;
+
+    public static event Action<PickupFollowFixed> OnPickup;
+    public static event Action<PickupFollowFixed> OnDrop;
+
+void Pickup() {
+    OnPickup?.Invoke(this);
+}
+
+void Drop() {
+    OnDrop?.Invoke(this);
+}
 
     void Start()
     {
