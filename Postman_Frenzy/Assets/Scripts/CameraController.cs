@@ -11,14 +11,16 @@ public class CameraController : MonoBehaviour
     public float maxDistance = 10f;
     public float zoomSpeed = 2f;
     public float heightOffset = 2f;
+    void Start()
+    {
+        //remove and confine cursor to gamespace
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        //remove and confine cursor to gamespace
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
-
         rotationX += Input.GetAxis("Mouse X") * sensitivity;
         rotationY -= Input.GetAxis("Mouse Y") * sensitivity;
         //block player from moving too far
