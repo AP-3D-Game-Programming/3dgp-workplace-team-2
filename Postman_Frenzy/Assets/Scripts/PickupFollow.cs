@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
-using Unity;
+
+using Unity.VisualScripting;
 
 public class PickupFollowFixed : MonoBehaviour
 {
@@ -37,7 +38,7 @@ void Drop() {
 
         prompt = GetComponent<PickupPrompt>();
         timerScript = GetComponent<PickupWithSlider>();
-        moneyUI = Object.FindFirstObjectByType<MoneyUI>(); // <— zoek UI-script
+        moneyUI = UnityEngine.Object.FindFirstObjectByType<MoneyUI>(); // <— zoek UI-script
     }
 
     [System.Obsolete]
@@ -103,10 +104,10 @@ void Drop() {
 
     void SelectRandomHouse()
     {
-        DeliveryHouse[] houses = Object.FindObjectsByType<DeliveryHouse>(FindObjectsSortMode.None);
+        DeliveryHouse[] houses = UnityEngine.Object.FindObjectsByType<DeliveryHouse>(FindObjectsSortMode.None);
         if (houses.Length == 0) return;
 
-        targetHouse = houses[Random.Range(0, houses.Length)];
+        targetHouse = houses[UnityEngine.Random.Range(0, houses.Length)];
         targetHouse.isTarget = true;
         Debug.Log($"Nieuw doelhuis: {targetHouse.name}");
     }
@@ -131,6 +132,7 @@ void Drop() {
         if (prompt != null)
             prompt.HideText(); // <— verberg de UI tekst meteen
 
+        HidePrompt();
         Destroy(gameObject); // verwijder het pakket
     }
 
