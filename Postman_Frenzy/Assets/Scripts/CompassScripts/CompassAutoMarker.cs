@@ -9,6 +9,15 @@ public class CompassMarkerAuto : MonoBehaviour
 
     private Transform targetHouse;
 
+    void Start()
+    {
+        if (marker != null)
+        {
+            marker.gameObject.SetActive(false);
+            Debug.Log("[CompassMarkerAuto] Marker hidden at start");
+        }
+    }
+
     void OnEnable()
     {
         PickupFollowFixed.OnPickup += HandlePickup;
@@ -25,12 +34,14 @@ public class CompassMarkerAuto : MonoBehaviour
     {
         targetHouse = pkg.targetHouse?.transform;
         marker.gameObject.SetActive(targetHouse != null);
+        Debug.Log("[CompassMarkerAuto] OnPickup event received! Marker visible = " + (targetHouse != null));
     }
 
     void HandleDrop(PickupFollowFixed pkg)
     {
         targetHouse = null;
         marker.gameObject.SetActive(false);
+        Debug.Log("[CompassMarkerAuto] OnDrop event received! Marker hidden");
     }
 
     void Update()

@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60cd28eac2336ff4f90c50391ba13970, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 7089547873242274511, guid: 7a96060fd8a777e418f81c88101bfd93, type: 3}
   pickupRange: 3
   followDistance: 2
   moveSpeed: 5
@@ -185,9 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupHouse: {fileID: 0}
-  deliveryHouse: {fileID: 0}
   interactDistance: 3
-  promptText: {fileID: 0}
   packagePrefab: {fileID: 8931708953118114714}
 --- !u!114 &596467526123282562
 MonoBehaviour:
