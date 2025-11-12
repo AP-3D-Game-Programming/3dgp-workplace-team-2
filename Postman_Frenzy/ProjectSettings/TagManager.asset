@@ -10,6 +10,9 @@ TagManager:
   - Deadly
   - Pickup
   - player
+  - Water
+  - Ground
+  - Crossroad
   layers:
   - Default
   - TransparentFX

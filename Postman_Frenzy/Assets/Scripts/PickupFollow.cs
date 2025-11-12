@@ -131,7 +131,6 @@ void Drop() {
         if (prompt != null)
             prompt.HideText(); // <— verberg de UI tekst meteen
 
-        HidePrompt();
         Destroy(gameObject); // verwijder het pakket
     }
 
