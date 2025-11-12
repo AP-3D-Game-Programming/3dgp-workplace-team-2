@@ -155,7 +155,7 @@ MonoBehaviour:
   player: {fileID: 7089547873242274511, guid: 7a96060fd8a777e418f81c88101bfd93, type: 3}
   pickupRange: 3
   followDistance: 2
-  moveSpeed: 5
+  moveSpeed: 4
   pickupKey: 101
   targetHouse: {fileID: 0}
 --- !u!114 &8956826503175949850

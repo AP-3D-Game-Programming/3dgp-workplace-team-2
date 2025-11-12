@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Unity;
+
 
 public class PickupPrompt : MonoBehaviour
 {
     [Header("UI Elements")]
-    public Text promptText; // Tekst die op het scherm wordt getoond
-
+    public UnityEngine.UI.Text promptText; // Tekst die op het scherm wordt getoond
+    
     [Header("Settings")]
     public string playerTag = "Player"; // Tag van de speler
     public string pickupMessage = "Press 'E' to pick up";

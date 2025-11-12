@@ -3,14 +3,14 @@ using System;
 
 public class PickupFollowFixed : MonoBehaviour
 {
-    public Transform player;                     
-    public float pickupRange = 3f;               
-    public float followDistance = 2f;            
-    public float moveSpeed = 5f;                 
-    public KeyCode pickupKey = KeyCode.E;        
+    public Transform player;                     // De speler in de scene
+    public float pickupRange = 3f;               // Maximale afstand om te kunnen oppakken
+    public float followDistance = 2f;            // Afstand waarop het pakket achter de speler zweeft
+    public float moveSpeed = 5f;                 // Volgsnelheid
+    public KeyCode pickupKey = KeyCode.E;        // Toets om pakket op te pakken / los te laten
 
-    private bool isHeld = false;                 
-    private Rigidbody rb;                        
+    private bool isHeld = false;                 // Of dit pakket momenteel wordt vastgehouden
+    private Rigidbody rb;                        // Rigidbody voor fysica
     private PickupPrompt prompt;                 
     private PickupWithSlider timerScript;        
     public DeliveryHouse targetHouse;            
@@ -18,6 +18,9 @@ public class PickupFollowFixed : MonoBehaviour
 
     public static event Action<PickupFollowFixed> OnPickup;
     public static event Action<PickupFollowFixed> OnDrop;
+
+    //   Static referentie naar het pakket dat momenteel vastgehouden wordt
+    public static PickupFollowFixed currentlyHeldPackage = null;
 
     void Start()
     {
@@ -28,23 +31,26 @@ public class PickupFollowFixed : MonoBehaviour
         prompt = GetComponent<PickupPrompt>();
         timerScript = GetComponent<PickupWithSlider>();
         moneyUI = UnityEngine.Object.FindFirstObjectByType<MoneyUI>();
-        // ❌ Geen huis selecteren bij Start(), dat gebeurt pas bij pickup.
     }
 
     [System.Obsolete]
     void Update()
     {
+        //   Als iemand anders al een pakket vasthoudt en dit pakket wordt niet vastgehouden, doe niets
+        if (currentlyHeldPackage != null && currentlyHeldPackage != this)
+            return;
+
         if (!isHeld)
         {
-            TryPickup();
+            TryPickup(); // Probeer te kijken of speler dit pakket wil oppakken
         }
         else
         {
-            FollowPlayer();
+            FollowPlayer(); // Volg speler als vastgehouden
 
             if (Input.GetKeyDown(pickupKey))
             {
-                DropObject();
+                DropObject(); // Loslaten
             }
         }
     }
@@ -60,9 +66,13 @@ public class PickupFollowFixed : MonoBehaviour
     void TryPickup()
     {
         float distance = Vector3.Distance(transform.position, player.position);
-        if (distance <= pickupRange && Input.GetKeyDown(pickupKey))
+
+        // Alleen oppakken als dicht genoeg én geen ander pakket al vast is
+        if (distance <= pickupRange && Input.GetKeyDown(pickupKey) && currentlyHeldPackage == null)
         {
             isHeld = true;
+            currentlyHeldPackage = this; //   Registreer dit pakket als actief
+
             rb.useGravity = false;
             rb.linearVelocity = Vector3.zero;
             GetComponent<Collider>().enabled = false;
@@ -73,18 +83,15 @@ public class PickupFollowFixed : MonoBehaviour
             if (timerScript != null)
                 timerScript.StartTimer();
 
-            // ✅ Kies huis alleen bij de eerste keer oppakken
             if (targetHouse == null)
             {
                 SelectRandomHouse();
             }
 
-            // ✅ Zet dat huis groen
             if (targetHouse != null)
                 targetHouse.isTarget = true;
 
             Debug.Log($"[PickupFollowFixed] Huis geselecteerd en groen gemaakt: {targetHouse.name}");
-
             OnPickup?.Invoke(this);
         }
     }
@@ -99,9 +106,10 @@ public class PickupFollowFixed : MonoBehaviour
         if (prompt != null)
             prompt.isHeld = false;
 
-        // ❌ NIET resetten bij droppen, het huis blijft actief
         Debug.Log($"[PickupFollowFixed] Pakket losgelaten, huis blijft actief: {targetHouse?.name}");
+
         targetHouse.ResetHouse();
+        currentlyHeldPackage = null; //   Laat weten dat er weer niets wordt vastgehouden
         OnDrop?.Invoke(this);
     }
 
@@ -116,7 +124,6 @@ public class PickupFollowFixed : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // ✅ Alleen leveren als speler het juiste huis bereikt met het pakket in handen
         if (isHeld && targetHouse != null && other.gameObject == targetHouse.gameObject)
         {
             DeliverPackage();
@@ -127,11 +134,10 @@ public class PickupFollowFixed : MonoBehaviour
     {
         Debug.Log("Pakket bezorgd!");
 
-        // ✅ Zet het huis terug naar standaardkleur
         if (targetHouse != null)
         {
             targetHouse.isTarget = false;
-            targetHouse.ResetHouse(); // roept veilig kleurreset aan
+            targetHouse.ResetHouse();
         }
 
         isHeld = false;
@@ -144,9 +150,9 @@ public class PickupFollowFixed : MonoBehaviour
 
         HidePrompt();
 
+        currentlyHeldPackage = null; //   Maak weer vrij voor het volgende pakket
         OnDrop?.Invoke(this);
 
-        // ✅ Verwijder het pakket na aflevering
         Destroy(gameObject);
     }
 
@@ -157,7 +163,10 @@ public class PickupFollowFixed : MonoBehaviour
 
     void OnDestroy()
     {
-        // ✅ Extra failsafe: reset huiskleur bij vernietiging
+        //   Extra zekerheid: als dit pakket verdwijnt, geef de controle vrij
+        if (currentlyHeldPackage == this)
+            currentlyHeldPackage = null;
+
         if (targetHouse != null)
         {
             targetHouse.isTarget = false;
