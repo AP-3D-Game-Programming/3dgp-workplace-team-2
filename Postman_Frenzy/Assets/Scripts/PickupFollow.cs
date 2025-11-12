@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using Unity;
 
 public class PickupFollowFixed : MonoBehaviour
 {
@@ -21,13 +20,15 @@ public class PickupFollowFixed : MonoBehaviour
     public static event Action<PickupFollowFixed> OnPickup;
     public static event Action<PickupFollowFixed> OnDrop;
 
-void Pickup() {
-    OnPickup?.Invoke(this);
-}
+    void Pickup()
+    {
+        OnPickup?.Invoke(this);
+    }
 
-void Drop() {
-    OnDrop?.Invoke(this);
-}
+    void Drop()
+    {
+        OnDrop?.Invoke(this);
+    }
 
     void Start()
     {
@@ -37,7 +38,7 @@ void Drop() {
 
         prompt = GetComponent<PickupPrompt>();
         timerScript = GetComponent<PickupWithSlider>();
-        moneyUI = Object.FindFirstObjectByType<MoneyUI>(); // <— zoek UI-script
+        moneyUI = UnityEngine.Object.FindFirstObjectByType<MoneyUI>(); // <— zoek UI-script
     }
 
     [System.Obsolete]
@@ -103,10 +104,10 @@ void Drop() {
 
     void SelectRandomHouse()
     {
-        DeliveryHouse[] houses = Object.FindObjectsByType<DeliveryHouse>(FindObjectsSortMode.None);
+        DeliveryHouse[] houses = UnityEngine.Object.FindObjectsByType<DeliveryHouse>(FindObjectsSortMode.None);
         if (houses.Length == 0) return;
 
-        targetHouse = houses[Random.Range(0, houses.Length)];
+        targetHouse = houses[UnityEngine.Random.Range(0, houses.Length)];
         targetHouse.isTarget = true;
         Debug.Log($"Nieuw doelhuis: {targetHouse.name}");
     }
