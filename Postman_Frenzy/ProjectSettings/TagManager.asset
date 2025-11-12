@@ -11,6 +11,8 @@ TagManager:
   - Pickup
   - player
   - Water
+  - Ground
+  - Crossroad
   layers:
   - Default
   - TransparentFX

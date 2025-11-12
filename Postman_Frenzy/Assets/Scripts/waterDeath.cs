@@ -1,27 +1,26 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 public class waterDeath : MonoBehaviour
 {
-    public GameObject deathTextObject;
-    void OnTriggerEnter(Collider other)
+    public Transform water;
+    public Transform player;
+    public TextMeshProUGUI waterDeathtxt;
+
+    void Start()
     {
-        if (other.CompareTag("Water"))
-        {
-            Die();
-        }
+        waterDeathtxt.gameObject.SetActive(false);
     }
-    void Die()
+
+    void Update()
     {
-        Debug.Log("Player death");
-        if (deathTextObject != null)
+        if (player.position.y < water.position.y - 2)
         {
-            deathTextObject.SetActive(true);
-            TextMeshProUGUI tmp = deathTextObject.GetComponent<TextMeshProUGUI>();
-            if (tmp != null)
-            {
-                tmp.text = "You ain't in a BOAT!!";
-            }
+            waterDeathtxt.gameObject.SetActive(true);
+        }
+        else
+        {
+            waterDeathtxt.gameObject.SetActive(false);
         }
     }
 }
