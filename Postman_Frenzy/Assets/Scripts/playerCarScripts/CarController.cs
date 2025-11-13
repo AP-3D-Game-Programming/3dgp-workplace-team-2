@@ -20,9 +20,18 @@ public class CarController : MonoBehaviour
 
     public float maxAcceleration = 30.0f;
     public float breakAcceleration = 50.0f;
+    public float boostMultiplier = 1.8f;
+    public float boostDuration = 2.5f;
+    public float boostCooldown = 5f;
+    public float boostKickForce = 4000f;
 
     public float turnSensitivity = 1.0f;
     public float maxSteerAngle = 30.0f;
+
+    private bool isBoosting = false;
+    private float boostTimer = 0f;
+    private float cooldownTimer = 0f;
+    private float currentBoostMultiplier = 1f;
 
     public Vector3 _centerOfMass;
 
@@ -44,6 +53,7 @@ public class CarController : MonoBehaviour
     {
         GetInputs();
         AnimatedWheels();
+        HandleBoostTimers();
     }
 
     void LateUpdate()
@@ -57,13 +67,43 @@ public class CarController : MonoBehaviour
     {
         moveInput = Input.GetAxis("Vertical");
         steerInput = Input.GetAxis("Horizontal");
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isBoosting && cooldownTimer <= 0f)
+            StartBoost();
+    }
+    void StartBoost()
+    {
+        isBoosting = true;
+        boostTimer = boostDuration;
+        cooldownTimer = boostCooldown;
+        carRb.AddForce(transform.forward * boostKickForce, ForceMode.Impulse);
+    }
+    void HandleBoostTimers()
+    {
+        if (cooldownTimer > 0f)
+            cooldownTimer -= Time.deltaTime;
+
+        if (isBoosting)
+        {
+            boostTimer -= Time.deltaTime;
+
+            // apply multiplier while boost is active
+            currentBoostMultiplier = Mathf.Lerp(currentBoostMultiplier, boostMultiplier, Time.deltaTime * 8f);
+
+            if (boostTimer <= 0f)
+                isBoosting = false;
+        }
+        else
+        {
+            // smooth fade-out back to normal
+            currentBoostMultiplier = Mathf.Lerp(currentBoostMultiplier, 1f, Time.deltaTime * 2f);
+        }
     }
 
     void Move()
     {
         foreach (var wheel in wheels)
         {
-            wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration * Time.deltaTime;
+            wheel.wheelCollider.motorTorque = currentBoostMultiplier * moveInput * 600 * maxAcceleration * Time.deltaTime;
         }
     }
 
@@ -96,6 +136,7 @@ public class CarController : MonoBehaviour
             }
         }
     }
+
     void AnimatedWheels()
     {
         foreach (var wheel in wheels)
