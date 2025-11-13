@@ -10,15 +10,23 @@ public class CarEntry : MonoBehaviour
     public Transform crate;
     public CameraController CameraController;
     private bool isInVehicle = false;
-
+    public CrateHoldScript crateScript;
 
     // Update is called once per frame
     void Update()
     {
+        bool holdingCrate = IsHoldingCrate();
+
         if (!isInVehicle)
         {
             if (Vector3.Distance(player.position, vehicle.position) < 5f)
             {
+                if (holdingCrate)
+                {
+                    Debug.Log("Cannot enter: player is holding a crate!");
+                    return; // block entry
+                }
+
                 if (Input.GetKeyDown(KeyCode.F))
                 {
                     EnterVehicle();
@@ -33,6 +41,7 @@ public class CarEntry : MonoBehaviour
             }
         }
     }
+
     void EnterVehicle()
     {
         isInVehicle = true;
@@ -66,13 +75,20 @@ public class CarEntry : MonoBehaviour
 
         player.position = transform.position + transform.right * 2f;
         player.gameObject.SetActive(true);
-        if (crate != null)
-        {
-            crate.GetComponent<PickupFollowFixed>().player = player;
-        }
 
         CameraController.player = player;
 
         Debug.Log("exited vehicle");
+    }
+    bool IsHoldingCrate()
+    {
+        CrateHoldScript[] crates = FindObjectsByType<CrateHoldScript>(FindObjectsSortMode.None);
+
+        foreach (var crate in crates)
+        {
+            if (crate.isHeld)
+                return true;
+        }
+        return false;
     }
 }
