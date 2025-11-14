@@ -38,13 +38,11 @@ public class CrateHoldScript : MonoBehaviour
 
             if (isHeld)
             {
-                // Pick up
                 crate.isKinematic = true;
                 crateCollider.enabled = false;
             }
             else
             {
-                // Drop safely in front of any obstacle
                 crate.isKinematic = false;
                 crateCollider.enabled = true;
 
@@ -53,14 +51,13 @@ public class CrateHoldScript : MonoBehaviour
 
                 if (Physics.Raycast(player.position + Vector3.up * holdOffset.y, player.forward, out hit, holdOffset.z + dropDistance))
                 {
-                    // Move crate just in front of obstacle
-                    dropPos = hit.point - player.forward * 0.5f; // 0.5 offset so it doesn't clip
+                    dropPos = hit.point - player.forward * 0.5f;
                 }
 
                 transform.position = dropPos;
                 transform.rotation = player.rotation * Quaternion.Euler(holdRotation);
 
-                crate.linearVelocity = Vector3.zero;       // prevent accidental launch
+                crate.linearVelocity = Vector3.zero;
                 crate.angularVelocity = Vector3.zero;
             }
         }
@@ -77,14 +74,12 @@ public class CrateHoldScript : MonoBehaviour
     {
         if (isHeld)
         {
-            // Load crate into van
             isHeld = false;
             isLoadedInVan = true;
             crate.isKinematic = true;
             crateCollider.enabled = false;
 
-            // Move crate inside the van instead of disabling it
-            transform.position = new Vector3(0, -10, 0); // or a specific van storage spot
+            transform.position = new Vector3(0, -10, 0);
             Debug.Log("Crate loaded into van!");
         }
         else if (isLoadedInVan)

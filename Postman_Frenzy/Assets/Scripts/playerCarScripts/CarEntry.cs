@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public class CarEntry : MonoBehaviour
@@ -6,11 +8,15 @@ public class CarEntry : MonoBehaviour
     public Transform player;
 
     public Transform vehicle;
-
-    public Transform crate;
     public CameraController CameraController;
     private bool isInVehicle = false;
     public CrateHoldScript crateScript;
+    public TextMeshProUGUI carEntry;
+
+    void Start()
+    {
+        carEntry.gameObject.SetActive(false);
+    }
 
     // Update is called once per frame
     void Update()
@@ -21,16 +27,26 @@ public class CarEntry : MonoBehaviour
         {
             if (Vector3.Distance(player.position, vehicle.position) < 5f)
             {
+
                 if (holdingCrate)
                 {
                     Debug.Log("Cannot enter: player is holding a crate!");
                     return; // block entry
                 }
+                else
+                {
+                    carEntry.gameObject.SetActive(true);
+                }
 
                 if (Input.GetKeyDown(KeyCode.F))
                 {
+                    carEntry.gameObject.SetActive(false);
                     EnterVehicle();
                 }
+            }
+            else
+            {
+                carEntry.gameObject.SetActive(false);
             }
         }
         else
@@ -50,10 +66,6 @@ public class CarEntry : MonoBehaviour
         vehicle.GetComponent<CarController>().enabled = true;
         player.gameObject.SetActive(false);
 
-        if (crate != null)
-        {
-            crate.GetComponent<PickupFollowFixed>().player = vehicle;
-        }
         CameraController.player = vehicle;
 
         Debug.Log("enter vehicle complete");

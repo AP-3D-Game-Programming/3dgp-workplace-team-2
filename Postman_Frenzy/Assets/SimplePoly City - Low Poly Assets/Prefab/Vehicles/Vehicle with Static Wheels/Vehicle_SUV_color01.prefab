@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 2300000}
   - component: {fileID: 4346948989313454119}
   - component: {fileID: 3533950796389539142}
-  - component: {fileID: -6089207217421465572}
-  - component: {fileID: -817200583553772296}
   m_Layer: 0
   m_Name: Vehicle_SUV_color01
   m_TagString: Untagged
@@ -30,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1, y: 1, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -139,37 +137,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-6089207217421465572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2c13d47dbb94ba4092bd00f40ce02de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxAcceleration: 50
-  breakAcceleration: 50
-  turnSensitivity: 1
-  maxSteerAngle: 30
-  _centerOfMass: {x: 0, y: 0, z: 0}
-  wheels: []
---- !u!114 &-817200583553772296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 883213774b4b0024387917dc7074dbea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  vehicle: {fileID: 0}
-  crate: {fileID: 0}
-  CameraController: {fileID: 0}
