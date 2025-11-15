@@ -8,6 +8,7 @@ public class CarEntry : MonoBehaviour
     public Transform player;
 
     public Transform vehicle;
+    public Transform carDoor;
     public CameraController CameraController;
     private bool isInVehicle = false;
     public CrateHoldScript crateScript;
@@ -25,7 +26,7 @@ public class CarEntry : MonoBehaviour
 
         if (!isInVehicle)
         {
-            if (Vector3.Distance(player.position, vehicle.position) < 5f)
+            if (Vector3.Distance(player.position, carDoor.position) < 3f)
             {
 
                 if (holdingCrate)

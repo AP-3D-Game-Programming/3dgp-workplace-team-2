@@ -50,9 +50,14 @@ public class UpgradeInteract : MonoBehaviour
 
     }
 
-    public void PurchaseSpeedUpgrade()
+    public void PurchaseSpeed()
     {
         if (car != null)
             car.maxAcceleration += 5f; // increase speed by 5
+    }
+    public void PurchaseBoost()
+    {
+        if (car != null)
+            car.boostMultiplier += 0.2f; // increase speed by 5
     }
 }
