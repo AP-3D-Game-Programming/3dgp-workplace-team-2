@@ -1,14 +1,19 @@
 using UnityEngine;
-
+using TMPro;
 public class CrateLoading : MonoBehaviour
 {
     private bool playerInside = false;
-
+    public TextMeshProUGUI loadCrateTxt;
+    void Start()
+    {
+        loadCrateTxt.gameObject.SetActive(false);
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             playerInside = true;
+            loadCrateTxt.gameObject.SetActive(true);
             Debug.Log("Player entered van loading zone");
         }
     }
@@ -18,6 +23,7 @@ public class CrateLoading : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInside = false;
+            loadCrateTxt.gameObject.SetActive(false);
             Debug.Log("Player left van loading zone");
         }
     }

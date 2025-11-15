@@ -103,7 +103,7 @@ public class CarController : MonoBehaviour
     {
         foreach (var wheel in wheels)
         {
-            wheel.wheelCollider.motorTorque = currentBoostMultiplier * moveInput * 600 * maxAcceleration * Time.deltaTime;
+            wheel.wheelCollider.motorTorque = currentBoostMultiplier * moveInput * 700 * maxAcceleration * Time.deltaTime;
         }
     }
 
