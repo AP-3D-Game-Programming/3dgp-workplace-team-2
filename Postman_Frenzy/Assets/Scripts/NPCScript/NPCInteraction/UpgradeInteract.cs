@@ -11,6 +11,7 @@ public class UpgradeInteract : MonoBehaviour
     public GameObject upgradeMenu;
     public CameraController cameraCon;
     public CarController car;
+    public MoneyEarnspend moneyUpdate;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -52,12 +53,40 @@ public class UpgradeInteract : MonoBehaviour
 
     public void PurchaseSpeed()
     {
-        if (car != null)
-            car.maxAcceleration += 5f; // increase speed by 5
+        if (moneyUpdate.SpendMoney(10))
+        {
+            if (car != null)
+                car.maxSpeed += 10f;
+        }
+        else
+        {
+            Debug.Log("Not enough money to purchase speed!");
+        }
     }
     public void PurchaseBoost()
     {
-        if (car != null)
-            car.boostMultiplier += 0.2f; // increase speed by 5
+        if (moneyUpdate.SpendMoney(10))
+        {
+            if (car != null)
+                car.boostMultiplier += 0.2f;
+        }
+        else
+        {
+            Debug.Log("Not enough money to purchase speed!");
+        }
+
+    }
+
+    public void PurchaseBoostDur()
+    {
+        if (moneyUpdate.SpendMoney(10))
+        {
+            if (car != null)
+                car.boostDuration += 0.5f;
+        }
+        else
+        {
+            Debug.Log("Not enough money to purchase speed!");
+        }
     }
 }

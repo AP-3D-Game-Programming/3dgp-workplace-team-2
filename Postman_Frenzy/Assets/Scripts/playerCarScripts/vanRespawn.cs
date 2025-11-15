@@ -5,7 +5,7 @@ public class VanRespawner : MonoBehaviour
     [SerializeField] private GameObject van;         // Reference to your van
     [SerializeField] private Transform player;   // Start position of the van
 
-    private Vector3 spawn = new Vector3(100, 100, 100);
+    private Vector3 spawn = new Vector3(96.25f, 104.74f, 106.02f);
 
     private Rigidbody vanRb;
 

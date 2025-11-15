@@ -10,6 +10,7 @@ public class SelectDeliveryHouse : MonoBehaviour
     public Color glowColor = Color.green;
     public float emissionIntensity = 2f;
     public TextMeshProUGUI deliveryText;
+    public MoneyEarnspend moneyUpdate;
     private List<CrateHoldScript> crates = new List<CrateHoldScript>();
     private Transform selectedHouse;
     private Material originalMaterial;
@@ -118,6 +119,8 @@ public class SelectDeliveryHouse : MonoBehaviour
             Destroy(heldCrate.gameObject);
 
             houseSelected = false;
+            moneyUpdate.AddMoney(100);
+
         }
         else
         {
