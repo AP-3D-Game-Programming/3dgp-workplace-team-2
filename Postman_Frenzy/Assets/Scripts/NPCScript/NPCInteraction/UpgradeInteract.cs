@@ -1,10 +1,9 @@
 using UnityEngine;
 using TMPro;
-using JetBrains.Annotations;
 
 public class UpgradeInteract : MonoBehaviour
 {
-    private Rigidbody interactNPC;
+    [Header("References")]
     public Transform player;
     public float interactRange = 3f;
     public TextMeshProUGUI interactText;
@@ -12,45 +11,70 @@ public class UpgradeInteract : MonoBehaviour
     public CameraController cameraCon;
     public CarController car;
     public MoneyEarnspend moneyUpdate;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private bool upgradeUIOpen = false;
+    private Rigidbody interactNPC;
+
     void Start()
     {
         interactNPC = GetComponent<Rigidbody>();
         interactText.gameObject.SetActive(false);
-        upgradeMenu.gameObject.SetActive(false);
+        upgradeMenu.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         float distance = Vector3.Distance(player.position, transform.position);
+
+        // Show interact text when player is in range
         if (distance < interactRange)
         {
             interactText.gameObject.SetActive(true);
+
+            // Toggle upgrade menu with E
             if (Input.GetKeyDown(KeyCode.E))
             {
-                PurchaseUp();
-
+                ToggleUpgradeMenu();
             }
         }
         else
         {
             interactText.gameObject.SetActive(false);
-            upgradeMenu.gameObject.SetActive(false);
-            cameraCon.enabled = true;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+
+            if (upgradeUIOpen)
+            {
+                CloseUpgradeMenu();
+            }
         }
     }
-    void PurchaseUp()
+
+    void ToggleUpgradeMenu()
     {
-        upgradeMenu.gameObject.SetActive(true);
+        if (upgradeUIOpen)
+            CloseUpgradeMenu();
+        else
+            OpenUpgradeMenu();
+    }
+
+    void OpenUpgradeMenu()
+    {
+        upgradeUIOpen = true;
+        upgradeMenu.SetActive(true);
         cameraCon.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
     }
 
+    void CloseUpgradeMenu()
+    {
+        upgradeUIOpen = false;
+        upgradeMenu.SetActive(false);
+        cameraCon.enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    // Upgrade buttons
     public void PurchaseSpeed()
     {
         if (moneyUpdate.SpendMoney(10))
@@ -63,6 +87,7 @@ public class UpgradeInteract : MonoBehaviour
             Debug.Log("Not enough money to purchase speed!");
         }
     }
+
     public void PurchaseBoost()
     {
         if (moneyUpdate.SpendMoney(10))
@@ -72,9 +97,8 @@ public class UpgradeInteract : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough money to purchase speed!");
+            Debug.Log("Not enough money to purchase boost!");
         }
-
     }
 
     public void PurchaseBoostDur()
@@ -86,7 +110,7 @@ public class UpgradeInteract : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough money to purchase speed!");
+            Debug.Log("Not enough money to purchase boost duration!");
         }
     }
 }
