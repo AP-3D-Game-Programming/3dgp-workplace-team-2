@@ -10900,7 +10900,7 @@ Transform:
   m_GameObject: {fileID: 673105572}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 122.36, y: 103.97, z: 191.11}
+  m_LocalPosition: {x: 122.36, y: 113.04, z: 191.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10922,7 +10922,7 @@ MonoBehaviour:
   crateParent: {fileID: 673105573}
   player: {fileID: 1446449329}
   interactText: {fileID: 1773612675}
-  spawnInterval: 5
+  spawnInterval: 1
   maxCrates: 1
   spawnOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &673525196
@@ -22616,6 +22616,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6483846403912615037, guid: f47b8bd02e9356e4f8b8c713e5c5f457, type: 3}
+    - {fileID: 8691744790814257050, guid: f47b8bd02e9356e4f8b8c713e5c5f457, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1112012797202153148, guid: f47b8bd02e9356e4f8b8c713e5c5f457, type: 3}
       insertIndex: -1
