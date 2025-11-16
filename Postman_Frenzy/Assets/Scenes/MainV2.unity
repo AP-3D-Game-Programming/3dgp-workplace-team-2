@@ -16440,7 +16440,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -22455,7 +22455,7 @@ MonoBehaviour:
   player: {fileID: 1446449329}
   deliveryRange: 10
   glowColor: {r: 0, g: 1, b: 0, a: 1}
-  emissionIntensity: 2
+  emissionIntensity: 10
   deliveryText: {fileID: 1887735950}
   moneyUpdate: {fileID: 1077840205}
 --- !u!4 &1897863014

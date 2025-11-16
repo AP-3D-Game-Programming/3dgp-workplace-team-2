@@ -1,16 +1,17 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+
 public class SelectDeliveryHouse : MonoBehaviour
 {
     public Transform crateParent;
     public Transform houseParent;
-    public Transform player;        // the player transform
-    public float deliveryRange = 10f; // how close you must be to deliver
-    public Color glowColor = Color.green;
-    public float emissionIntensity = 2f;
+    public Transform player;             // the player transform
+    public float deliveryRange = 10f;    // how close you must be to deliver
+    public Color highlightColor = Color.green;  // new color to indicate selection
     public TextMeshProUGUI deliveryText;
     public MoneyEarnspend moneyUpdate;
+
     private List<CrateHoldScript> crates = new List<CrateHoldScript>();
     private Transform selectedHouse;
     private Material originalMaterial;
@@ -89,11 +90,13 @@ public class SelectDeliveryHouse : MonoBehaviour
         Renderer rend = selectedHouse.GetComponent<Renderer>();
         if (rend != null)
         {
+            // Save the original material
             originalMaterial = rend.material;
-            Material glowMat = new Material(originalMaterial);
-            glowMat.EnableKeyword("_EMISSION");
-            glowMat.SetColor("_EmissionColor", glowColor * emissionIntensity);
-            rend.material = glowMat;
+
+            // Create a new material so we can change its color safely
+            Material colorMat = new Material(originalMaterial);
+            colorMat.color = highlightColor;  // just change the base color
+            rend.material = colorMat;
         }
 
         Debug.Log("Selected delivery house: " + selectedHouse.name);
@@ -104,12 +107,13 @@ public class SelectDeliveryHouse : MonoBehaviour
         if (selectedHouse == null || heldCrate == null) return;
 
         float dist = Vector3.Distance(player.position, selectedHouse.position);
-        Debug.Log(dist + "from house");
+        Debug.Log(dist + " from house");
+
         if (dist <= deliveryRange)
         {
             Debug.Log("Crate delivered to: " + selectedHouse.name);
 
-            ResetHouseGlow();
+            ResetHouseColor();
 
             heldCrate.isHeld = false;
             if (heldCrate.TryGetComponent<Rigidbody>(out var rb))
@@ -120,7 +124,6 @@ public class SelectDeliveryHouse : MonoBehaviour
 
             houseSelected = false;
             moneyUpdate.AddMoney(100);
-
         }
         else
         {
@@ -128,7 +131,7 @@ public class SelectDeliveryHouse : MonoBehaviour
         }
     }
 
-    void ResetHouseGlow()
+    void ResetHouseColor()
     {
         if (selectedHouse == null) return;
 

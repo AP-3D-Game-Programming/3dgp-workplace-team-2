@@ -61,8 +61,8 @@ public class CarController : MonoBehaviour
     {
         Move();
         Steer();
-        Brake();
         BrakeOrReverse();
+        Brake();
     }
 
     void GetInputs()
@@ -130,6 +130,7 @@ public class CarController : MonoBehaviour
             foreach (var wheel in wheels)
             {
                 wheel.wheelCollider.brakeTorque = 600 * breakAcceleration;
+                wheel.wheelCollider.motorTorque = 0f;
             }
         }
         else

@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class CompassMarkerAuto : MonoBehaviour
 {
@@ -49,3 +49,4 @@ public class CompassMarkerAuto : MonoBehaviour
         marker.anchoredPosition = new Vector2(markerX, marker.anchoredPosition.y);
     }
 }
+*/

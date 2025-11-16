@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
   - component: {fileID: 6614204582528707438}
-  - component: {fileID: 4201315151287120064}
   m_Layer: 0
   m_Name: Building_Gas Station
   m_TagString: Untagged
@@ -110,17 +109,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 25449c1a4c4ca004ead70b6c0889695b, type: 3}
---- !u!114 &4201315151287120064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c116891a607a90b4698f8cfa79291ed4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTarget: 0
-  targetColor: {r: 0, g: 1, b: 0, a: 1}
