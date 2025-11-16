@@ -42,7 +42,11 @@ public class SelectDeliveryHouse : MonoBehaviour
 
         if (houseSelected && selectedHouse != null)
         {
-            float dist = Vector3.Distance(player.position, selectedHouse.position);
+            // Use the bounds to get the closest point
+            Renderer rend = selectedHouse.GetComponent<Renderer>();
+            Vector3 closestPoint = rend != null ? rend.bounds.ClosestPoint(player.position) : selectedHouse.position;
+
+            float dist = Vector3.Distance(player.position, closestPoint);
 
             if (anyHeld && dist <= deliveryRange)
             {
@@ -51,7 +55,7 @@ public class SelectDeliveryHouse : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    TryDeliverCrate(heldCrate);
+                    TryDeliverCrate(heldCrate, closestPoint);
                 }
             }
             else
@@ -60,6 +64,7 @@ public class SelectDeliveryHouse : MonoBehaviour
             }
         }
     }
+
 
     void RefreshCrateList()
     {
@@ -102,12 +107,12 @@ public class SelectDeliveryHouse : MonoBehaviour
         Debug.Log("Selected delivery house: " + selectedHouse.name);
     }
 
-    void TryDeliverCrate(CrateHoldScript heldCrate)
+    void TryDeliverCrate(CrateHoldScript heldCrate, Vector3 closestPoint)
     {
         if (selectedHouse == null || heldCrate == null) return;
 
-        float dist = Vector3.Distance(player.position, selectedHouse.position);
-        Debug.Log(dist + " from house");
+        float dist = Vector3.Distance(player.position, closestPoint);
+        Debug.Log(dist + " from house edge");
 
         if (dist <= deliveryRange)
         {
@@ -130,6 +135,7 @@ public class SelectDeliveryHouse : MonoBehaviour
             Debug.Log("Too far from the delivery house!");
         }
     }
+
 
     void ResetHouseColor()
     {

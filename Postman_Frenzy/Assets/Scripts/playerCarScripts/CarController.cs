@@ -59,10 +59,9 @@ public class CarController : MonoBehaviour
 
     void LateUpdate()
     {
+        HandleBrakingAndReverse();
         Move();
         Steer();
-        BrakeOrReverse();
-        Brake();
     }
 
     void GetInputs()
@@ -123,8 +122,12 @@ public class CarController : MonoBehaviour
         }
     }
 
-    void Brake()
+    void HandleBrakingAndReverse()
     {
+        float forwardSpeed = Vector3.Dot(carRb.linearVelocity, transform.forward);
+        float speedFactor = Mathf.Clamp01((maxSpeed - carRb.linearVelocity.magnitude) / maxSpeed);
+
+        // 1. Handbrake (SPACE)
         if (Input.GetKey(KeyCode.Space))
         {
             foreach (var wheel in wheels)
@@ -132,45 +135,37 @@ public class CarController : MonoBehaviour
                 wheel.wheelCollider.brakeTorque = 600 * breakAcceleration;
                 wheel.wheelCollider.motorTorque = 0f;
             }
+            return;
         }
-        else
-        {
-            foreach (var wheel in wheels)
-            {
-                wheel.wheelCollider.brakeTorque = 0;
-            }
-        }
-    }
 
-    void BrakeOrReverse()
-    {
-        float forwardSpeed = Vector3.Dot(carRb.linearVelocity, transform.forward);
-        float speedFactor = Mathf.Clamp01((maxSpeed - carRb.linearVelocity.magnitude) / maxSpeed);
-
+        // 2. Reverse / Brake (S key)
         if (Input.GetKey(KeyCode.S))
         {
             foreach (var wheel in wheels)
             {
                 if (forwardSpeed > 0.1f)
                 {
+                    // moving forward → brake first
                     wheel.wheelCollider.brakeTorque = 400 * breakAcceleration;
                     wheel.wheelCollider.motorTorque = 0f;
                 }
                 else
                 {
+                    // stopped or rolling backward → reverse
                     wheel.wheelCollider.brakeTorque = 0f;
                     wheel.wheelCollider.motorTorque = -speedFactor * motorTorque;
                 }
             }
+            return;
         }
-        else
+
+        // 3. No braking or reversing
+        foreach (var wheel in wheels)
         {
-            foreach (var wheel in wheels)
-            {
-                wheel.wheelCollider.brakeTorque = 0f;
-            }
+            wheel.wheelCollider.brakeTorque = 0f;
         }
     }
+
 
     void AnimatedWheels()
     {
