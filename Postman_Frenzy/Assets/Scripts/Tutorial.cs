@@ -35,13 +35,12 @@ public class Tutorial : MonoBehaviour
         yield return WaitForAnyKeyDown();
 
         // --- Stap 1: Bewegen ---
-        ShowText("Stap 1: Gebruik WASD om te bewegen en SPACE om te springen.");
+        ShowText("Stap 1: Gebruik WASD om te bewegen en SPACE om te springen, met scrollen kan je de camerview veranderen.");
         EnablePlayer();
         yield return new WaitUntil(PlayerHasMoved);
+        yield return new WaitForSeconds(6);
         DisablePlayer();
         ShowText("Goed gedaan!");
-        yield return new WaitForSeconds(2);
-
 
         // --- Stap 2: Pakket oppakken en neerleggen ---
         ShowText("Stap 2: Loop naar een crate en druk op E om het op te pakken.");
@@ -80,9 +79,12 @@ public class Tutorial : MonoBehaviour
         carEntry.enabled = true;
         yield return new WaitUntil(CarIsEntered);
 
+        ShowText("Je zal upgrades voor je auto kunnen vinden bij \"upgrade dude\" aan het magazijn");
+        yield return new WaitForSeconds(5);
 
-        ShowText("druk op 'M' om een map view te krijgen. Rij tot aan het volledig lichtgroenHuis (F uitstappen)/ 'LSHIFT' MicroBoost");
+        ShowText("druk op 'M (vraagteken op AZERTY)' om een map view te krijgen. Rij tot aan het volledig lichtgroenHuis (F uitstappen)/ 'LSHIFT' MicroBoost");
         yield return new WaitUntil(CarIsExited);
+        yield return new WaitForSeconds(2);
 
         // --- Stap 5: Crate uitladen ---
         ShowText("Stap 5: Haal de crate eruit door naar de auto te lopen en op E te drukken.");

@@ -80,7 +80,7 @@ public class UpgradeInteract : MonoBehaviour
         if (moneyUpdate.SpendMoney(10))
         {
             if (car != null)
-                car.maxSpeed += 10f;
+                car.maxSpeed += 5f;
         }
         else
         {

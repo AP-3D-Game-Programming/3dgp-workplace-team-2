@@ -1243,7 +1243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1066319570766071098, guid: e7836283677e62c47920b67a9e9101b3, type: 3}
       propertyPath: boostKickForce
-      value: 8000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 1066319570766071098, guid: e7836283677e62c47920b67a9e9101b3, type: 3}
       propertyPath: maxAcceleration

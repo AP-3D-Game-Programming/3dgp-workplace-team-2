@@ -17,7 +17,7 @@ public class CrateReset : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.y < water.position.y - 2)
+        if (water != null && transform.position.y < water.position.y - 2)
         {
             ResetCrate();
         }

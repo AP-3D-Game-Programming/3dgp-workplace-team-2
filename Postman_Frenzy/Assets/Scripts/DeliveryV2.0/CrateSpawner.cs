@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class CrateSpawner : MonoBehaviour
 {
@@ -8,14 +9,20 @@ public class CrateSpawner : MonoBehaviour
     public Transform crateParent;
     public Transform player;
     public TextMeshProUGUI interactText;
+    public Transform congratulations;
+    public int crateAmound;
 
     [Header("Spawn Control")]
     public float spawnInterval = 5f;
     public int maxCrates = 5;
     public Vector3 spawnOffset = Vector3.zero;
 
+    private Boolean firstTime = true;
     private float timer;
-
+    void Start()
+    {
+        congratulations.gameObject.SetActive(false);
+    }
     void Update()
     {
         timer += Time.deltaTime;
@@ -23,6 +30,17 @@ public class CrateSpawner : MonoBehaviour
         {
             timer = 0f;
             SpawnCrate();
+        }
+        if (firstTime && crateAmound == 6)
+        {
+            congratulations.gameObject.SetActive(true);
+            firstTime = false; // only show once
+        }
+
+        // Check for hiding
+        if (congratulations && Input.GetKeyDown(KeyCode.E))
+        {
+            congratulations.gameObject.SetActive(false);
         }
     }
 
@@ -46,6 +64,17 @@ public class CrateSpawner : MonoBehaviour
         }
 
         Debug.Log("Spawned crate with references assigned.");
+        crateAmound += 1;
+
+        if (firstTime == true && crateAmound == 1)
+        {
+            congratulations.gameObject.SetActive(true);
+            firstTime = false;
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                congratulations.gameObject.SetActive(false);
+            }
+        }
     }
 }
 

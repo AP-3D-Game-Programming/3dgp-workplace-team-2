@@ -128,7 +128,7 @@ public class SelectDeliveryHouse : MonoBehaviour
             Destroy(heldCrate.gameObject);
 
             houseSelected = false;
-            moneyUpdate.AddMoney(100);
+            moneyUpdate.AddMoney(50);
         }
         else
         {
