@@ -26973,6 +26973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   van: {fileID: 1591829120}
   player: {fileID: 1446449329}
+  playerOffset: {x: -3, y: 0, z: 0}
 --- !u!4 &1844350826
 Transform:
   m_ObjectHideFlags: 0

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class VanRespawner : MonoBehaviour
 {
-    [SerializeField] private GameObject van;         // Reference to your van
-    [SerializeField] private Transform player;   // Start position of the van
+    [SerializeField] private GameObject van;
+    [SerializeField] private Transform player;
 
     private Vector3 spawn = new Vector3(96.25f, 104.74f, 106.02f);
 
@@ -44,19 +44,20 @@ public class VanRespawner : MonoBehaviour
             vanRb.angularVelocity = Vector3.zero;
         }
 
-        if (player != null)
-            van.transform.position = player.position - player.right * 3;
-        else
-            van.transform.position = spawn; // pointfallback if no start 
+        Vector3 offset = player.transform.right * -3f;
+        van.transform.position = player.position + offset;
 
-        vanRb.linearVelocity = Vector3.zero;
-        vanRb.angularVelocity = Vector3.zero;
-
-        van.transform.rotation = Quaternion.identity; // optional: reset rotation
+        Vector3 euler = van.transform.eulerAngles;
+        euler.y = player.eulerAngles.y;
+        van.transform.rotation = Quaternion.Euler(euler);
     }
+    public Vector3 playerOffset = new Vector3(5f, 5f, 0f);
     void respawnPlayer()
     {
         van.transform.position = spawn;
-        player.transform.position = spawn;
+        van.transform.rotation = Quaternion.identity;
+
+        Vector3 worldOffset = van.transform.TransformDirection(playerOffset);
+        player.transform.position = spawn + worldOffset;
     }
 }

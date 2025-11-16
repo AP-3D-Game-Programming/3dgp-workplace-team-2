@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2914831349566638448}
   - component: {fileID: 8621389237263172504}
   - component: {fileID: 6597168623955668803}
+  - component: {fileID: -5364308380314128143}
   m_Layer: 0
   m_Name: Crate
   m_TagString: Untagged
@@ -156,3 +157,16 @@ MonoBehaviour:
   holdRotation: {x: 0, y: 0, z: 0}
   dropDistance: 1
   isHeld: 0
+  isLoadedInVan: 0
+--- !u!114 &-5364308380314128143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9038738674400794239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0086693a1bac5524b8765fe911d3bf4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
