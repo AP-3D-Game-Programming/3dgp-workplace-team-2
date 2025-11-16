@@ -68,7 +68,9 @@ public class CrateHoldScript : MonoBehaviour
             transform.rotation = player.rotation * Quaternion.Euler(holdRotation);
         }
     }
+
     public bool isLoadedInVan = false;
+
 
     public void TryLoadOrUnload()
     {
@@ -79,7 +81,7 @@ public class CrateHoldScript : MonoBehaviour
             crate.isKinematic = true;
             crateCollider.enabled = false;
 
-            transform.position = new Vector3(0, -10, 0);
+            transform.position = new Vector3(1000, 1000, 1000);
             Debug.Log("Crate loaded into van!");
         }
         else if (isLoadedInVan)
