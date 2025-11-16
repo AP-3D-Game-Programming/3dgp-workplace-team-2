@@ -6,12 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
 {
-[Header("References")]
+    [Header("References")]
     public PlayerController player;
     public CarEntry carEntry;
     public TextMeshProUGUI tutorialText;
     public SelectDeliveryHouse deliverySystem; // delivery logic
     public Transform crateParent; // voor alle crates
+    public float holdTime = 2f;
+    private float timer = 0f;
+
 
     [Header("Settings")]
     public float moveThreshold = 0.1f; // minimale afstand voor "bewegen"
@@ -39,6 +42,7 @@ public class Tutorial : MonoBehaviour
         ShowText("Goed gedaan!");
         yield return new WaitForSeconds(2);
 
+
         // --- Stap 2: Pakket oppakken en neerleggen ---
         ShowText("Stap 2: Loop naar een crate en druk op E om het op te pakken.");
         EnablePlayer();
@@ -58,20 +62,9 @@ public class Tutorial : MonoBehaviour
                 if (!c.isHeld) return true;
             return false;
         });
-        ShowText("Pakket neergelegd!");
-        yield return new WaitForSeconds(2);
 
-        // --- Stap 3: Auto in- en uitstappen ---
-        ShowText("Stap 3: Loop naar de auto en druk op F om in te stappen. ");
-        carEntry.enabled = true;
-        yield return new WaitUntil(CarIsEntered);
-
-        ShowText("Je zit in de auto. Movement is hetzelfde als lopen. Druk op F om uit te stappen.");
-        yield return new WaitUntil(CarIsExited);
-        carEntry.enabled = false;
-
-        // --- Stap 4: Crate inladen ---
-        ShowText("Stap 4: Pak een crate en laad deze in de auto door op E te drukken.");
+        // --- Stap 3: Crate inladen ---
+        ShowText("Stap 3: Pak een crate en laad deze in de auto door op E te drukken.");
         yield return new WaitUntil(() =>
         {
             CrateHoldScript[] crates = FindObjectsOfType<CrateHoldScript>();
@@ -82,6 +75,15 @@ public class Tutorial : MonoBehaviour
         ShowText("Crate is in de auto!");
         yield return new WaitForSeconds(2);
 
+        // --- Stap 4: Auto in- en uitstappen ---
+        ShowText("Stap 4: Loop naar de auto en druk op F om in te stappen. ");
+        carEntry.enabled = true;
+        yield return new WaitUntil(CarIsEntered);
+
+
+        ShowText("druk op 'M' om een map view te krijgen. Rij tot aan het volledig lichtgroenHuis (F uitstappen)/ 'LSHIFT' MicroBoost");
+        yield return new WaitUntil(CarIsExited);
+
         // --- Stap 5: Crate uitladen ---
         ShowText("Stap 5: Haal de crate eruit door naar de auto te lopen en op E te drukken.");
         yield return new WaitUntil(() =>
@@ -91,12 +93,9 @@ public class Tutorial : MonoBehaviour
                 if (c.isHeld && !c.isLoadedInVan) return true;
             return false;
         });
-        ShowText("Crate uit de auto gehaald!");
-        yield return new WaitForSeconds(2);
 
         // --- Stap 6: Crate afleveren bij het huis ---
         ShowText("Stap 6: Breng het pakket naar het huis en druk op E om het af te leveren.");
-        deliverySystem.enabled = true;
         yield return new WaitUntil(() => FindObjectsOfType<CrateHoldScript>().Length == 0);
         ShowText("Geweldig! Het pakket is afgeleverd.");
         yield return new WaitForSeconds(2);
@@ -107,6 +106,21 @@ public class Tutorial : MonoBehaviour
         SceneManager.LoadScene("MainV2");
     }
 
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.X)) // Check if X is being held
+        {
+            timer += Time.deltaTime; // Increase timer by the time since last frame
+            if (timer >= holdTime)
+            {
+                SceneManager.LoadScene("MainV2"); // Load the scene after 2 seconds
+            }
+        }
+        else
+        {
+            timer = 0f; // Reset timer if X is released
+        }
+    }
     // ----------------------------
     // Helper functies
     // ----------------------------
@@ -154,9 +168,7 @@ public class Tutorial : MonoBehaviour
 
     private void DisableAllControls()
     {
-        player.enabled = false;
         carEntry.enabled = false;
-        deliverySystem.enabled = false;
     }
 
     private void EnableAllControls()
