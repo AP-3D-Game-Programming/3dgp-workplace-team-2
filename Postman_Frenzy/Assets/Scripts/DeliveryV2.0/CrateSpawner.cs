@@ -66,7 +66,7 @@ public class CrateSpawner : MonoBehaviour
         Debug.Log("Spawned crate with references assigned.");
         crateAmound += 1;
 
-        if (firstTime == true && crateAmound == 1)
+        if (firstTime == true && crateAmound == 6)
         {
             congratulations.gameObject.SetActive(true);
             firstTime = false;
