@@ -64,7 +64,10 @@ public class SpikeTrapDeath : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other != null && other.gameObject.tag == deadlyTag)
+        {
             StartCoroutine(HandleDeath());
+        }
+
     }
 
     IEnumerator HandleDeath()

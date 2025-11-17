@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,18 +12,19 @@ public class NPCScript : MonoBehaviour
     public int index = 0;
     public int direction = 1; // 1 = forward, -1 = backward
 
-    void Start()
+    IEnumerator Start()
     {
         agent = GetComponent<NavMeshAgent>();
 
-        // Get all path points
-        PathPoints = new Transform[PATH.transform.childCount];
-        for (int i = 0; i < PathPoints.Length; i++)
+        // Gather path points
+        int count = PATH.transform.childCount;
+        PathPoints = new Transform[count];
+        for (int i = 0; i < count; i++)
         {
             PathPoints[i] = PATH.transform.GetChild(i);
         }
 
-        // Find the closest point to start
+        // Find closest starting point
         float closestDist = Mathf.Infinity;
         for (int i = 0; i < PathPoints.Length; i++)
         {
@@ -36,33 +36,37 @@ public class NPCScript : MonoBehaviour
             }
         }
 
+        // Initial move
         agent.SetDestination(PathPoints[index].position);
-    }
 
-    void Update()
-    {
-        Roam();
+        // NPC "thinks" every 0.3 seconds instead of every frame
+        while (true)
+        {
+            Roam();
+            yield return new WaitForSeconds(0.3f);
+        }
     }
 
     void Roam()
     {
         if (Vector3.Distance(transform.position, PathPoints[index].position) < minDistance)
         {
-            // Rarely change direction (5% chance)
+            // 5% chance to reverse
             if (Random.value < 0.05f)
             {
                 direction *= -1;
             }
 
-            // Move to next point in the chosen direction
+            // Move along
             index += direction;
 
-            // Wrap around if we reach the ends
+            // Wrap around
             if (index >= PathPoints.Length)
                 index = 0;
             else if (index < 0)
                 index = PathPoints.Length - 1;
 
+            // Set next destination
             agent.SetDestination(PathPoints[index].position);
         }
     }
