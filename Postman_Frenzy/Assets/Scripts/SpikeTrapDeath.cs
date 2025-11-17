@@ -12,6 +12,7 @@ public class SpikeTrapDeath : MonoBehaviour
     // If set in Inspector, this will be displayed on death.
     // If left empty, the Text component's current value (set in the Editor) will be used.
     public string deathMessage = "test";
+    public MoneyEarnspend moneyUpdate;
 
     // cached default text taken from the Text component at Start
     string defaultText;
@@ -97,6 +98,7 @@ public class SpikeTrapDeath : MonoBehaviour
         }
 
         transform.position = respawnPosition;
+        moneyUpdate.SpendMoney(50);
 
         yield return new WaitForSeconds(deathMessageDuration);
 
